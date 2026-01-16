@@ -12,7 +12,7 @@ interface TeacherInterface {
 
 class Director implements DirectorInterface {
     workFromHome(): string {
-        return "Working from Home";
+        return "Working from home";
     }
 
     getCoffeeBreak(): string {
@@ -45,6 +45,32 @@ function createEmployee(salary: number | string): Director | Teacher {
 
     return new Director();
 }
+
+function isDirector(employee: Director | Teacher): employee is Director {
+    return (employee as Director).workDirectorTasks !== undefined;
+}
+
+function executeWork(employee: Director | Teacher): string {
+    if (isDirector(employee)) {
+        return employee.workDirectorTasks();
+    } else {
+        return employee.workTeacherTasks();
+    }
+}
+console.log(executeWork(createEmployee(200)));
+// Output: "Getting to work"
+
+console.log(executeWork(createEmployee(1000)));
+// Output: "Getting to director tasks"
+
+// Tests supplémentaires
+const emp1 = createEmployee(150);
+console.log(`Employee 1 is a ${isDirector(emp1) ? 'Director' : 'Teacher'}`);
+console.log(executeWork(emp1));
+
+const emp2 = createEmployee(2000);
+console.log(`Employee 2 is a ${isDirector(emp2) ? 'Director' : 'Teacher'}`);
+console.log(executeWork(emp2));
 
 console.log(createEmployee(200));
 console.log(createEmployee(1000));

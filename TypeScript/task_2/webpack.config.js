@@ -37,7 +37,8 @@ module.exports = {
     new ForkTsCheckerWebpackPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: "Development"
+      title: "Development",
+      scriptLoading: 'blocking'  // ← AJOUT ICI
     })
   ],
   
