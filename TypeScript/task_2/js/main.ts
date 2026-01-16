@@ -47,7 +47,7 @@ function createEmployee(salary: number | string): Director | Teacher {
 }
 
 function isDirector(employee: Director | Teacher): employee is Director {
-    return (employee as Director).workDirectorTasks !== undefined;
+    return employee instanceof Director;
 }
 
 function executeWork(employee: Director | Teacher): string {
@@ -57,6 +57,17 @@ function executeWork(employee: Director | Teacher): string {
         return employee.workTeacherTasks();
     }
 }
+
+type Subjects = "Math" | "History";
+
+function teachClass(todayClass: Subjects): string {
+  return `Teaching ${todayClass}`;
+}
+
+// Tests
+console.log(teachClass("Math"));
+console.log(teachClass("History"));
+
 console.log(executeWork(createEmployee(200)));
 // Output: "Getting to work"
 
